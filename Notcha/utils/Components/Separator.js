@@ -19,7 +19,7 @@ export default function Separator(props) {
       />
       <View>
         <Text style={{
-            width: 50,
+            width: 60,
             fontSize: 20, 
             textAlign: 'center',
             color: '#000000'

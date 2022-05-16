@@ -2,12 +2,12 @@ import React from "react";
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { MaterialColors } from "../utils/MaterialDesign";
-import Login from "./LoginScreen";
-import UserNotes from "./User/Notes";
+import UserNotes from "./UserNotes";
+import ConfigScreen from "./ConfigScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 
-export default function UserScreen() {
+export default function UserNavigation() {
   return(
       <Tab.Navigator
         initialRouteName='Notes'
@@ -25,7 +25,7 @@ export default function UserScreen() {
         />
         <Tab.Screen 
           name="Settings" 
-          component={Login}
+          component={ConfigScreen}
           options={{
             tabBarIcon: () => (
               <MaterialCommunityIcons name="cog-outline" color={'#FFFFFF'} size={26} />

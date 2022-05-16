@@ -4,7 +4,7 @@ var MaterialColors = {
   purple_500: '#6200EE',
   purple_700: '#3700B3',
   purple_200: '#BB86FC',
-  purple_100: '#FACDF2',
+  purple_100: '#FCAEEF',
 };
 
 const MaterialStyles = StyleSheet.create({

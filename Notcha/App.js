@@ -3,9 +3,10 @@ import { StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/LoginScreen';
-import UserScreen from './screens/UserScreen';
-import NoteEditor from './screens/User/NoteEditor';
+import UserNavigation from './screens/UserNavigation';
+import NoteEditor from './screens/NoteEditor';
 import { MaterialColors } from './utils/MaterialDesign';
+import AboutScreen from './screens/AboutScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,10 +41,17 @@ export default function App() {
         />
         <Stack.Screen // User Screen
           name='NotesHome' 
-          component={UserScreen}
+          component={UserNavigation}
           options={{
             title: 'Welcome to Notcha',
             headerBackVisible: false,
+          }}
+        />
+        <Stack.Screen // User Screen
+          name='AboutScreen' 
+          component={AboutScreen}
+          options={{
+            title: 'About',
           }}
         />
         <Stack.Screen // Editor Screen

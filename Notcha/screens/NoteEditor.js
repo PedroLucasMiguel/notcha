@@ -7,7 +7,7 @@ import {
   StyleSheet,
   ToastAndroid,
 } from "react-native";
-import { MaterialStyles, MaterialColors } from "../../utils/MaterialDesign";
+import { MaterialStyles, MaterialColors } from "../utils/MaterialDesign";
 import { actions, RichEditor, RichToolbar } from "react-native-pell-rich-editor";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 

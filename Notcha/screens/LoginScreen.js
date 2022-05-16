@@ -21,7 +21,7 @@ export default function Login({navigation}) {
           iconName='information-variant'
           iconColor='#000000'
           size={40}
-          onPress={() => navigation.navigate('NotesHome')}
+          onPress={() => navigation.navigate('AboutScreen')}
         />
       </View>
       <Image 

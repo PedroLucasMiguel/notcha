@@ -1,8 +1,8 @@
 import React from "react";
 import { ScrollView, View, StyleSheet, Alert, ToastAndroid } from "react-native";
-import { MaterialStyles } from "../../utils/MaterialDesign";
-import { PrimaryButton, SecondaryButton } from "../../utils/Components/CustomButtons";
-import Separator from "../../utils/Components/Separator";
+import { MaterialStyles } from "../utils/MaterialDesign";
+import { PrimaryButton, SecondaryButton } from "../utils/Components/CustomButtons";
+import Separator from "../utils/Components/Separator";
 
 export default function UserNotes({navigation}) {
 
@@ -11,7 +11,7 @@ export default function UserNotes({navigation}) {
   // Generating the buttons
   for(let i = 1; i <= 10; i++) {
     btns.push(
-      <View style={{paddingTop: 5}}>
+      <View style={{paddingTop: 5}} key={i}>
         <SecondaryButton
           title={'Note' + i}
           padding={30}
