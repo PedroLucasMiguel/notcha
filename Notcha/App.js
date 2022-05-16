@@ -15,7 +15,7 @@ const Stack = createNativeStackNavigator();
 
   Into this stack we have:
     - User Login screen
-    - User Screen (witch have a bottom navigator)
+    - User Screen (witch has a bottom navigator)
     - Editor screen
 
   This was made like this because is much easir to make this flow:
@@ -47,7 +47,7 @@ export default function App() {
             headerBackVisible: false,
           }}
         />
-        <Stack.Screen // User Screen
+        <Stack.Screen // About Screen
           name='AboutScreen' 
           component={AboutScreen}
           options={{
