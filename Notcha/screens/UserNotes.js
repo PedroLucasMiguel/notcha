@@ -1,8 +1,9 @@
-import React from "react";
-import { ScrollView, View, StyleSheet, Alert, ToastAndroid } from "react-native";
+import React, { useContext, useState, useEffect } from "react";
+import { ScrollView, View, StyleSheet, Alert, ToastAndroid, Text } from "react-native";
 import { MaterialStyles } from "../utils/MaterialDesign";
 import { PrimaryButton, SecondaryButton } from "../utils/Components/CustomButtons";
 import Separator from "../utils/Components/Separator";
+import { AppContext } from "../Context";
 
 export default function UserNotes({navigation}) {
 
@@ -44,9 +45,17 @@ export default function UserNotes({navigation}) {
     );
   }
 
+  const darkTheme = useContext(AppContext).darkTheme;
+  const [pageTheme, setPageTheme] = useState(darkTheme ? MaterialStyles.dt_background : MaterialStyles.wt_background);
+
+  useEffect(() => {
+    setPageTheme(darkTheme ? MaterialStyles.dt_background : MaterialStyles.wt_background);
+  }, [darkTheme]);
+
   return(
-    <ScrollView style={MaterialStyles.wt_background}>
+    <ScrollView style={pageTheme}>
       <View style={Styles.topView}>
+        <Text style={{color: 'black'}}>{}</Text>
         <PrimaryButton
           title='Create a note'
           padding={30}

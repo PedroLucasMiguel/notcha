@@ -7,6 +7,7 @@ import UserNavigation from './screens/UserNavigation';
 import NoteEditor from './screens/NoteEditor';
 import { MaterialColors } from './utils/MaterialDesign';
 import AboutScreen from './screens/AboutScreen';
+import AppContextProvider from './Context';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,45 +25,47 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return(
-    <NavigationContainer>
-      <StatusBar 
-        backgroundColor={MaterialColors.purple_700} 
-      />
-      <Stack.Navigator 
-        initialRouteName='Login'
-        screenOptions={{
-          headerStyle: {backgroundColor: MaterialColors.purple_500},
-          headerTintColor: '#FFFFFF',
-        }}
-      >
-        <Stack.Screen // Login Screen
-          name='Login' 
-          component={Login}
+    <AppContextProvider>
+      <NavigationContainer>
+        <StatusBar 
+          backgroundColor={MaterialColors.purple_700} 
         />
-        <Stack.Screen // User Screen
-          name='NotesHome' 
-          component={UserNavigation}
-          options={{
-            title: 'Welcome to Notcha',
-            headerBackVisible: false,
+        <Stack.Navigator 
+          initialRouteName='Login'
+          screenOptions={{
+            headerStyle: {backgroundColor: MaterialColors.purple_500},
+            headerTintColor: '#FFFFFF',
           }}
-        />
-        <Stack.Screen // About Screen
-          name='AboutScreen' 
-          component={AboutScreen}
-          options={{
-            title: 'About',
-          }}
-        />
-        <Stack.Screen // Editor Screen
-          name='NoteEditor' 
-          component={NoteEditor}
-          options={{
-            title: 'Note Editor',
-            animation: 'none'
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+        >
+          <Stack.Screen // Login Screen
+            name='Login' 
+            component={Login}
+          />
+          <Stack.Screen // User Screen
+            name='NotesHome' 
+            component={UserNavigation}
+            options={{
+              title: 'Welcome to Notcha',
+              headerBackVisible: false,
+            }}
+          />
+          <Stack.Screen // About Screen
+            name='AboutScreen' 
+            component={AboutScreen}
+            options={{
+              title: 'About',
+            }}
+          />
+          <Stack.Screen // Editor Screen
+            name='NoteEditor' 
+            component={NoteEditor}
+            options={{
+              title: 'Note Editor',
+              animation: 'none'
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AppContextProvider>
   );
 }

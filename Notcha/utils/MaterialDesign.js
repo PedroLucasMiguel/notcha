@@ -4,7 +4,7 @@ var MaterialColors = {
   purple_500: '#6200EE',
   purple_700: '#3700B3',
   purple_200: '#BB86FC',
-  purple_100: '#FCAEEF',
+  purple_100: '#FA93E9',
 };
 
 const MaterialStyles = StyleSheet.create({
@@ -17,6 +17,9 @@ const MaterialStyles = StyleSheet.create({
     color: '#000000',
   },
   // --------------------------------
+  dt_background: {
+    backgroundColor: '#000000',
+  },
 });
 
 
