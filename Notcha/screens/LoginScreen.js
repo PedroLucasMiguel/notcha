@@ -33,7 +33,7 @@ export default function Login({navigation}) {
         />
       </View>
       <Image 
-        source={{uri: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/162.png'}} 
+        source={require('../assets/Logo.png')} 
         style={Styles.logo}
       />
       <Text style={pageTheme[1]}>Welcome to Notcha</Text>

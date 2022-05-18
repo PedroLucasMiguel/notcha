@@ -45,7 +45,7 @@ export default function ConfigScreen() {
             }} 
             value={darkTheme}
             thumbColor={MaterialColors.purple_700} 
-            trackColor={MaterialColors.purple_500}
+            trackColor={"#FFFFFF"}
           />
         </View>
       </View>

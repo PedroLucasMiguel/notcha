@@ -1,8 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
-import { View, TouchableHighlight, Pressable, Text } from "react-native";
+import { View, TouchableHighlight, Pressable, Text, Vibration  } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { MaterialColors } from "../MaterialDesign";
 import { AppContext } from '../../Context'
+
+const BTN_VIBRATION_MS = 50
 
 function CustomButton(props) {
 
@@ -13,7 +15,10 @@ function CustomButton(props) {
           paddingLeft: props.padding,
         }}>
         <TouchableHighlight 
-          onPress={props.onPress}
+          onPress={() => {
+            Vibration.vibrate(BTN_VIBRATION_MS);
+            props.onPress();
+          }}
           style={{
               borderRadius: props.borderRadius,
               width: props.width,
@@ -48,7 +53,10 @@ function CustomButton(props) {
         paddingLeft: props.padding,
       }}>
       <TouchableHighlight 
-        onPress={props.onPress}
+        onPress={() => {
+          Vibration.vibrate(BTN_VIBRATION_MS);
+          props.onPress();
+        }}
         
         style={{
             borderRadius: props.borderRadius,
@@ -87,7 +95,10 @@ function CustomPressableButton(props) {
         paddingLeft: props.padding,
       }}>
       <Pressable 
-        onPress={props.onPress}
+        onPress={() => {
+          Vibration.vibrate(BTN_VIBRATION_MS);
+          props.onPress()
+        }}
         onLongPress={props.onLongPress}
         style={{
             borderRadius: props.borderRadius,

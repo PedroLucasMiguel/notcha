@@ -10,7 +10,7 @@ export default function UserNotes({navigation}) {
   let btns = []
 
   // Generating the buttons
-  for(let i = 1; i <= 10; i++) {
+  for(let i = 1; i <= 1; i++) {
     btns.push(
       <View style={{paddingTop: 5}} key={i}>
         <SecondaryButton
