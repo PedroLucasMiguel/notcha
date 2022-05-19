@@ -20,7 +20,7 @@ export default function AboutScreen() {
       <Text style={pageTheme[3]}>Pedro Lucas Miguel</Text>
       <Text style={pageTheme[4]}>pedro.l.miguel@unesp.br</Text>
       <Text style={pageTheme[3]}>Matheus Augusto</Text>
-      <Text style={pageTheme[4]}>I dunno yur mail sowuy ;-;</Text>
+      <Text style={pageTheme[4]}>matheus-augusto.santos@unesp.br</Text>
       <View style={Styles.third_party_view}>
         <Separator text='Third party' />
         <Text style={pageTheme[3]}>stulip</Text>
