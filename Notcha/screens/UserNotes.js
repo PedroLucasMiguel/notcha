@@ -9,7 +9,7 @@ export default function UserNotes({navigation}) {
 
   let btns = []
 
-  // Generating the buttons
+  // Gerando os botões de place holder
   for(let i = 1; i <= 10; i++) {
     btns.push(
       <View style={{paddingTop: 5}} key={i}>

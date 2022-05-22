@@ -5,6 +5,15 @@ import { actions, RichEditor, RichToolbar } from "react-native-pell-rich-editor"
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AppContext } from "../Context";
 
+/*
+  Esta é a tela de edição de notas.
+
+  Ela permite que sejam criadas novas notas, ou então, que notas já existentes sejam editadas.
+
+  O editor de texto usado é o chamado "react-native-pell-rich-editor", cujo GitHub pode
+  ser encontrado aqui: https://github.com/wxik/react-native-rich-editor/
+*/
+
 export default function NoteEditor({route, navigation}) {
 
   const theme = useContext(AppContext).darkTheme;
@@ -14,6 +23,7 @@ export default function NoteEditor({route, navigation}) {
   const editorView = useRef(null);
   const [editorText, setEditorText] = useState('');
 
+  // Hook que realiza a atualização do tema caso ele tenha sido alterado
   useEffect(() => {
     setPageTheme(theme ? [MaterialStyles.dt_background, Styles.dt_file_name] : [MaterialStyles.wt_background, Styles.wt_file_name]);
   }, [theme])

@@ -4,18 +4,13 @@ import { PrimaryButton, RoundIconButton } from "../utils/Components/CustomButton
 import { MaterialColors } from "../utils/MaterialDesign";
 import Separator from "../utils/Components/Separator";
 import { AppContext } from "../Context";
-/*
-  Here we have out "Login screen"
-
-  By the fact that the "Login" screen is in the same "stack" as the
-  UserScreen, we can easily go to the UserScreen by using "navigation"
-*/
 
 export default function Login({navigation}) {
 
   const theme = useContext(AppContext).darkTheme;
   const [pageTheme, setPageTheme] = useState(theme ? [Styles.dt_main_view, Styles.dt_login_text, '#FFFFFF'] : [Styles.wt_main_view, Styles.wt_login_text, '#000000']);
 
+  // Hook que realiza a atualização do tema caso ele tenha sido alterado
   useEffect(() => {
     setPageTheme(theme ? [Styles.dt_main_view, Styles.dt_login_text, '#FFFFFF'] : [Styles.wt_main_view, Styles.wt_login_text, '#000000']);
   }, [theme]);

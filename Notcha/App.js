@@ -12,15 +12,16 @@ import AppContextProvider from './Context';
 const Stack = createNativeStackNavigator();
 
 /*
-  In this file we have the "main" navigation stack.
+  Aqui se encontra grande parte do mecanismo de navegação do aplicativo
 
-  Into this stack we have:
-    - User Login screen
-    - User Screen (witch has a bottom navigator)
-    - Editor screen
+  Basicamente possuimos um "stack navigator" que possui as seguintes telas:
+  - Login
+  - Notas (Página do usuário)
+  - Editor de notas
+  - Sobre
 
-  This was made like this because is much easir to make this flow:
-    User Login -> User Screen (Notes/Settings) -> Edit/Create Note
+  Este tipo de abordagem permite que as telas citadas possam acessar umas as outras
+  de forma mais simples.
 */
 
 export default function App() {

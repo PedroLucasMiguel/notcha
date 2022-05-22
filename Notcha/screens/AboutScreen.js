@@ -4,11 +4,17 @@ import { MaterialStyles } from "../utils/MaterialDesign";
 import Separator from "../utils/Components/Separator";
 import { AppContext } from "../Context";
 
+/*
+  Simples tela de "sobre".
+  Nada muito especial.
+*/
+
 export default function AboutScreen() {
 
   const theme = useContext(AppContext).darkTheme;
   const [pageTheme, setPageTheme] = useState(theme ? [MaterialStyles.dt_background, Styles.dt_title, Styles.dt_title2, Styles.dt_author, Styles.dt_author_data] : [MaterialStyles.wt_background, Styles.wt_title, Styles.wt_title2, Styles.wt_author, Styles.wt_author_data]);
 
+  // Hook que realiza a atualização do tema caso ele tenha sido alterado
   useEffect(() => {
     setPageTheme(theme ? [MaterialStyles.dt_background, Styles.dt_title, Styles.dt_title2, Styles.dt_author, Styles.dt_author_data] : [MaterialStyles.wt_background, Styles.wt_title, Styles.wt_title2, Styles.wt_author, Styles.wt_author_data]);
   }, [theme]);

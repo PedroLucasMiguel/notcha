@@ -21,6 +21,7 @@ export default function ConfigScreen() {
 
   const [darkThemeSwitch, setDarkThemeSwitch] = useState(false)
 
+  // Hook que realiza a atualização do tema caso ele tenha sido alterado
   useEffect(() => {
     setPageTheme(darkTheme ? [MaterialStyles.dt_background, Styles.dt_section_title, Styles.dt_section_item] : [MaterialStyles.wt_background, Styles.wt_section_title, Styles.wt_section_item]);
   }, [darkTheme])

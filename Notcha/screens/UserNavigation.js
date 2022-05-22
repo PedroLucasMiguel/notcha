@@ -5,6 +5,13 @@ import { MaterialColors } from "../utils/MaterialDesign";
 import UserNotes from "./UserNotes";
 import ConfigScreen from "./ConfigScreen";
 
+
+/*
+  Aqui é definido um "tab navigator" para a página de notas do usuário.
+
+  Esse navegador permite a seguinte navegação: UserNotes <--> Settings
+*/
+
 const Tab = createMaterialBottomTabNavigator();
 
 export default function UserNavigation() {
