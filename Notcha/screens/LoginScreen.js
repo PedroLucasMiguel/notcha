@@ -1,34 +1,37 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { ScrollView, Text, StyleSheet, Image, ToastAndroid, View } from "react-native";
 import { PrimaryButton, RoundIconButton } from "../utils/Components/CustomButtons";
 import { MaterialColors } from "../utils/MaterialDesign";
 import Separator from "../utils/Components/Separator";
-
-/*
-  Here we have out "Login screen"
-
-  By the fact that the "Login" screen is in the same "stack" as the
-  UserScreen, we can easily go to the UserScreen by using "navigation"
-*/
+import { AppContext } from "../Context";
 
 export default function Login({navigation}) {
+
+  const theme = useContext(AppContext).darkTheme;
+  const [pageTheme, setPageTheme] = useState(theme ? [Styles.dt_main_view, Styles.dt_login_text, '#FFFFFF'] : [Styles.wt_main_view, Styles.wt_login_text, '#000000']);
+
+  // Hook que realiza a atualização do tema caso ele tenha sido alterado
+  useEffect(() => {
+    setPageTheme(theme ? [Styles.dt_main_view, Styles.dt_login_text, '#FFFFFF'] : [Styles.wt_main_view, Styles.wt_login_text, '#000000']);
+  }, [theme]);
+
   return(
     
-    <ScrollView style={Styles.main_view}>
+    <ScrollView style={pageTheme[0]}>
       <View style={Styles.about_view}>
         <RoundIconButton
           color={MaterialColors.purple_100}
           iconName='information-variant'
-          iconColor='#000000'
+          iconColor={pageTheme[2]}
           size={40}
           onPress={() => navigation.navigate('AboutScreen')}
         />
       </View>
       <Image 
-        source={{uri: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/162.png'}} 
+        source={require('../assets/Logo.png')} 
         style={Styles.logo}
       />
-      <Text style={Styles.login_text}>Welcome to Notcha</Text>
+      <Text style={pageTheme[1]}>Welcome to Notcha</Text>
       <PrimaryButton
         title='Login as Google'
         padding={30}
@@ -60,13 +63,27 @@ export default function Login({navigation}) {
 }
 
 const Styles = StyleSheet.create({
-  main_view: {
+  wt_main_view: {
     backgroundColor: '#FFFFFF',
     paddingTop: 5,
   },
 
-  login_text: {
+  dt_main_view: {
+    backgroundColor: '#000000',
+    paddingTop: 5,
+  },
+
+  wt_login_text: {
     color: '#000000',
+    fontSize: 40,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingBottom: 55,
+    paddingTop: 10,
+  },
+
+  dt_login_text: {
+    color: '#FFFFFF',
     fontSize: 40,
     fontWeight: 'bold',
     textAlign: 'center',

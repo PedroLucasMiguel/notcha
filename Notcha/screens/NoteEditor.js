@@ -1,29 +1,41 @@
-import React, { useRef, useState } from "react";
-import { 
-  ScrollView,
-  TextInput, 
-  Text,
-  View,
-  StyleSheet,
-  ToastAndroid,
-} from "react-native";
+import React, { useRef, useState, useContext, useEffect } from "react";
+import { ScrollView, TextInput, Text, View, StyleSheet, ToastAndroid } from "react-native";
 import { MaterialStyles, MaterialColors } from "../utils/MaterialDesign";
 import { actions, RichEditor, RichToolbar } from "react-native-pell-rich-editor";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { AppContext } from "../Context";
+
+/*
+  Esta é a tela de edição de notas.
+
+  Ela permite que sejam criadas novas notas, ou então, que notas já existentes sejam editadas.
+
+  O editor de texto usado é o chamado "react-native-pell-rich-editor", cujo GitHub pode
+  ser encontrado aqui: https://github.com/wxik/react-native-rich-editor/
+*/
 
 export default function NoteEditor({route, navigation}) {
+
+  const theme = useContext(AppContext).darkTheme;
+  const [pageTheme, setPageTheme] = useState(theme ? [MaterialStyles.dt_background, Styles.dt_file_name] : [MaterialStyles.wt_background, Styles.wt_file_name]);
+
   const richText = useRef(null);
   const editorView = useRef(null);
   const [editorText, setEditorText] = useState('');
 
+  // Hook que realiza a atualização do tema caso ele tenha sido alterado
+  useEffect(() => {
+    setPageTheme(theme ? [MaterialStyles.dt_background, Styles.dt_file_name] : [MaterialStyles.wt_background, Styles.wt_file_name]);
+  }, [theme])
+
   return(
     <ScrollView 
-      style={MaterialStyles.wt_background}
+      style={pageTheme[0]}
       ref={editorView}
       onContentSizeChange={ () => editorView.current.scrollToEnd({ animated: false })}
     >
       <View style={Styles.file_name_view}>
-        <Text style={Styles.file_name}>File name:</Text>
+        <Text style={pageTheme[1]}>File name:</Text>
         <TextInput 
           defaultValue={route.params.fileName}
           style={Styles.file_name_field}
@@ -94,8 +106,15 @@ const Styles = StyleSheet.create({
     marginTop: 10,
   },
 
-  file_name: {
+  wt_file_name: {
     color: '#000000',
+    fontWeight: 'bold',
+    fontSize: 25,
+    paddingBottom: 10,
+  },
+
+  dt_file_name: {
+    color: '#FFFFFF',
     fontWeight: 'bold',
     fontSize: 25,
     paddingBottom: 10,

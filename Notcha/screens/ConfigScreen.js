@@ -1,7 +1,8 @@
-import React, {useState} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { ScrollView, View, Text, StyleSheet, Switch, ToastAndroid, TextInput } from "react-native";
 import { PrimaryButton } from "../utils/Components/CustomButtons";
 import { MaterialStyles, MaterialColors } from "../utils/MaterialDesign";
+import { AppContext } from '../Context'
 
 function wipMessage() {
   ToastAndroid.showWithGravityAndOffset(
@@ -14,32 +15,48 @@ function wipMessage() {
 }
 
 export default function ConfigScreen() {
+
+  const { darkTheme, setDarkTheme } = useContext(AppContext);
+  const [pageTheme, setPageTheme] = useState(darkTheme ? [MaterialStyles.dt_background, Styles.dt_section_title, Styles.dt_section_item] : [MaterialStyles.wt_background, Styles.wt_section_title, Styles.wt_section_item]);
+
   const [darkThemeSwitch, setDarkThemeSwitch] = useState(false)
 
+  // Hook que realiza a atualização do tema caso ele tenha sido alterado
+  useEffect(() => {
+    setPageTheme(darkTheme ? [MaterialStyles.dt_background, Styles.dt_section_title, Styles.dt_section_item] : [MaterialStyles.wt_background, Styles.wt_section_title, Styles.wt_section_item]);
+  }, [darkTheme])
+
   return(
-    <ScrollView style={MaterialStyles.wt_background}>
+    <ScrollView style={pageTheme[0]}>
       <View style={Styles.section_view}>
-        <Text style={Styles.section_title}>
+        <Text style={pageTheme[1]}>
           Theming
         </Text>
         <View style={Styles.section_inside_view}>
-          <Text style={Styles.section_item}>Use Dark theme: </Text>
+          <Text style={pageTheme[2]}>Use Dark theme: </Text>
           <Switch 
-            onValueChange={(v) => setDarkThemeSwitch(v)}
-            onChange={wipMessage} 
-            value={darkThemeSwitch}
+            onValueChange={(v) => {
+              setDarkThemeSwitch(v);
+            }}
+            onChange={() => {
+              if (darkTheme)
+                setDarkTheme(false); 
+              else
+                setDarkTheme(true);
+            }} 
+            value={darkTheme}
             thumbColor={MaterialColors.purple_700} 
-            trackColor={MaterialColors.purple_500}
+            trackColor={"#FFFFFF"}
           />
         </View>
       </View>
 
       <View style={Styles.section_view}>
-        <Text style={Styles.section_title}>
+        <Text style={pageTheme[1]}>
           Files
         </Text>
         <View>
-          <Text style={Styles.section_item}>Default new file name: </Text>
+          <Text style={pageTheme[2]}>Default new file name: </Text>
           <TextInput defaultValue='NewFile' style={Styles.file_name_field} />
         </View>
       </View>
@@ -75,15 +92,28 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
-  section_title: {
+  wt_section_title: {
     color: '#000000',
     fontSize: 35,
     fontWeight: 'bold',
     paddingBottom: 20,
   },
 
-  section_item: {
+  dt_section_title: {
+    color: '#FFFFFF',
+    fontSize: 35,
+    fontWeight: 'bold',
+    paddingBottom: 20,
+  },
+
+  wt_section_item: {
     color: '#000000',
+    fontSize: 20,
+    paddingBottom: 10,
+  },
+
+  dt_section_item: {
+    color: '#FFFFFF',
     fontSize: 20,
     paddingBottom: 10,
   },

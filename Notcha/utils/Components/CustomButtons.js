@@ -1,13 +1,10 @@
-import React from "react";
-import { 
-  View,
-  TouchableHighlight,
-  Pressable,
-  Text,
-} from "react-native";
+import React, { useContext, useState, useEffect } from "react";
+import { View, TouchableHighlight, Pressable, Text, Vibration  } from "react-native";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import { MaterialColors } from "../MaterialDesign";
+import { AppContext } from '../../Context'
+
+const BTN_VIBRATION_MS = 50
 
 function CustomButton(props) {
 
@@ -18,7 +15,10 @@ function CustomButton(props) {
           paddingLeft: props.padding,
         }}>
         <TouchableHighlight 
-          onPress={props.onPress}
+          onPress={() => {
+            Vibration.vibrate(BTN_VIBRATION_MS);
+            props.onPress();
+          }}
           style={{
               borderRadius: props.borderRadius,
               width: props.width,
@@ -53,7 +53,10 @@ function CustomButton(props) {
         paddingLeft: props.padding,
       }}>
       <TouchableHighlight 
-        onPress={props.onPress}
+        onPress={() => {
+          Vibration.vibrate(BTN_VIBRATION_MS);
+          props.onPress();
+        }}
         
         style={{
             borderRadius: props.borderRadius,
@@ -92,7 +95,10 @@ function CustomPressableButton(props) {
         paddingLeft: props.padding,
       }}>
       <Pressable 
-        onPress={props.onPress}
+        onPress={() => {
+          Vibration.vibrate(BTN_VIBRATION_MS);
+          props.onPress()
+        }}
         onLongPress={props.onLongPress}
         style={{
             borderRadius: props.borderRadius,
@@ -127,6 +133,13 @@ function CustomPressableButton(props) {
 
 function PrimaryButton(props) {
 
+  const darkTheme = useContext(AppContext).darkTheme;
+  const [tColor, setTColor] = useState(darkTheme ? '#FFFFFF' : '#000000');
+
+  useEffect(() => {
+    setTColor(darkTheme ? '#FFFFFF' : '#000000');
+  }, [darkTheme]);
+
   /*
     Props:
       - title
@@ -140,7 +153,7 @@ function PrimaryButton(props) {
   return(
     <CustomButton
       color={MaterialColors.purple_200}
-      textColor='#000000' 
+      textColor={tColor}
       title={props.title}
       width={props.width}
       height={props.height}
@@ -153,6 +166,13 @@ function PrimaryButton(props) {
 }
 
 function SecondaryButton(props) {
+
+  const darkTheme = useContext(AppContext).darkTheme;
+  const [tColor, setTColor] = useState(darkTheme ? '#FFFFFF' : '#000000');
+
+  useEffect(() => {
+    setTColor(darkTheme ? '#FFFFFF' : '#000000');
+  }, [darkTheme]);
 
   /*
     Props:
@@ -168,7 +188,7 @@ function SecondaryButton(props) {
   return(
     <CustomPressableButton
       color={MaterialColors.purple_100}
-      textColor='#000000' 
+      textColor={tColor} 
       title={props.title}
       width={props.width}
       height={props.height}
