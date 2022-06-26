@@ -7,50 +7,75 @@ import { AppContext } from "../Context";
 
 export default function UserNotes({navigation}) {
 
-  let btns = []
-
-  // Gerando os botões de place holder
-  for(let i = 1; i <= 10; i++) {
-    btns.push(
-      <View style={{paddingTop: 5}} key={i}>
-        <SecondaryButton
-          title={'Note' + i}
-          padding={30}
-          height={60}
-          fontSize={20}
-          onPress={() => navigation.navigate('NoteEditor', {fileName: 'Note' + i, initialText: '<h1>Note' + i + '</h1>'})}
-          onLongPress={() => Alert.alert(
-              'Note' + i + ' options:',
-              'Do you want to remove that note?',
-              [
-                {
-                  text: 'Yes',
-                  onPress: () => ToastAndroid.showWithGravityAndOffset(
-                    'Work in Progress!',
-                    ToastAndroid.SHORT,
-                    ToastAndroid.BOTTOM,
-                    25,
-                    30,
-                  )
-                },
-              
-                {
-                  text: 'No'
-                }
-              ]
-            )
-          }
-      />
-      </View>
-    );
-  }
-
+  var RNFS = require('react-native-fs');
   const darkTheme = useContext(AppContext).darkTheme;
+  const refreshNotes = useContext(AppContext).refreshNotes;
   const [pageTheme, setPageTheme] = useState(darkTheme ? MaterialStyles.dt_background : MaterialStyles.wt_background);
+
+  const [btns, setBtns] = useState([])
 
   useEffect(() => {
     setPageTheme(darkTheme ? MaterialStyles.dt_background : MaterialStyles.wt_background);
   }, [darkTheme]);
+
+  useEffect(() => {
+    
+    async function getFiles() {
+      let fnames = await RNFS.readdir(RNFS.DocumentDirectoryPath)
+
+      let fnamesAux  = []
+
+      for(let i = 0; i < fnames.length; i++) {
+        if (fnames[i].endsWith('.html')) {
+          fnamesAux.push(fnames[i].split('.')[0])
+        }
+      }
+
+      // Gerando os botões de place holder
+      let btnAux = []
+      for(let i = 0; i < fnamesAux.length; i++) {
+        btnAux.push(
+          <View style={{paddingTop: 5}} key={i}>
+            <SecondaryButton
+              title={fnamesAux[i]}
+              padding={30}
+              height={60}
+              fontSize={20}
+              onPress={() => navigation.navigate('NoteEditor', {fileName: fnamesAux[i]})}
+              onLongPress={() => Alert.alert(
+                  'Note' + i + ' options:',
+                  'Do you want to remove that note?',
+                  [
+                    {
+                      text: 'Yes',
+                      onPress: () => ToastAndroid.showWithGravityAndOffset(
+                        'Work in Progress!',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.BOTTOM,
+                        25,
+                        30,
+                      )
+                    },
+                  
+                    {
+                      text: 'No'
+                    }
+                  ]
+                )
+              }
+          />
+          </View>
+        );
+      }
+
+      setBtns(btnAux)
+    } 
+    
+    getFiles()
+
+    return
+
+  }, [refreshNotes])
 
   return(
     <ScrollView style={pageTheme}>
@@ -61,7 +86,7 @@ export default function UserNotes({navigation}) {
           padding={30}
           height={60}
           fontSize={20}
-          onPress={() => navigation.navigate('NoteEditor', {fileName: 'NewFile', initialText: ''})}
+          onPress={() => navigation.navigate('NoteEditor', {newFile: true})}
         />
       </View>
       <Separator text='Your notes'/>
