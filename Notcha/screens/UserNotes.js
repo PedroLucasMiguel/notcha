@@ -10,8 +10,8 @@ export default function UserNotes({navigation}) {
   var RNFS = require('react-native-fs');
   const darkTheme = useContext(AppContext).darkTheme;
   const refreshNotes = useContext(AppContext).refreshNotes;
+  const setRefreshNotes = useContext(AppContext).setRefreshNotes;
   const [pageTheme, setPageTheme] = useState(darkTheme ? MaterialStyles.dt_background : MaterialStyles.wt_background);
-
   const [btns, setBtns] = useState([])
 
   useEffect(() => {
@@ -43,18 +43,16 @@ export default function UserNotes({navigation}) {
               fontSize={20}
               onPress={() => navigation.navigate('NoteEditor', {fileName: fnamesAux[i]})}
               onLongPress={() => Alert.alert(
-                  'Note' + i + ' options:',
+                  fnamesAux[i] + ' options:',
                   'Do you want to remove that note?',
                   [
                     {
                       text: 'Yes',
-                      onPress: () => ToastAndroid.showWithGravityAndOffset(
-                        'Work in Progress!',
-                        ToastAndroid.SHORT,
-                        ToastAndroid.BOTTOM,
-                        25,
-                        30,
-                      )
+                      onPress: async () => {
+                        await RNFS.unlink(RNFS.DocumentDirectoryPath + '/' + fnamesAux[i] + '.html')
+                        .then(() => Alert.alert('File removed succefuly!'))
+                        setRefreshNotes(!refreshNotes)
+                      }
                     },
                   
                     {
@@ -67,7 +65,6 @@ export default function UserNotes({navigation}) {
           </View>
         );
       }
-
       setBtns(btnAux)
     } 
     
