@@ -26,13 +26,13 @@ export default function UserNotes({navigation}) {
       let fnamesAux  = []
 
       for(let i = 0; i < fnames.length; i++) {
-        if (fnames[i].endsWith('.html')) {
+        if (fnames[i].endsWith('.html'))
           fnamesAux.push(fnames[i].split('.')[0])
-        }
       }
 
-      // Gerando os botões de place holder
       let btnAux = []
+
+      // Gerando os botões para cada nota encontrada no sistema
       for(let i = 0; i < fnamesAux.length; i++) {
         btnAux.push(
           <View style={{paddingTop: 5}} key={i}>
@@ -44,7 +44,7 @@ export default function UserNotes({navigation}) {
               onPress={() => navigation.navigate('NoteEditor', {fileName: fnamesAux[i]})}
               onLongPress={() => Alert.alert(
                   fnamesAux[i] + ' options:',
-                  'Do you want to remove that note?',
+                  'Do you want to remove this note?',
                   [
                     {
                       text: 'Yes',
@@ -65,6 +65,7 @@ export default function UserNotes({navigation}) {
           </View>
         );
       }
+      
       setBtns(btnAux)
     } 
     

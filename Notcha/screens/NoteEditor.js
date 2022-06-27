@@ -6,7 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { AppContext } from "../Context";
 
 /*
-  Esta é a tela de edição de notas.
+  Essa é a tela de edição de notas.
 
   Ela permite que sejam criadas novas notas, ou então, que notas já existentes sejam editadas.
 
@@ -27,7 +27,6 @@ export default function NoteEditor({route, navigation}) {
   const setRefreshNotes = useContext(AppContext).setRefreshNotes;
   const refreshNotes = useContext(AppContext).refreshNotes;
   const [pageTheme, setPageTheme] = useState(theme ? [MaterialStyles.dt_background, Styles.dt_file_name] : [MaterialStyles.wt_background, Styles.wt_file_name]);
-
   const richText = useRef(null);
   const editorView = useRef(null);
   const [fileName, setFileName] = useState(route.params.newFile ? 'NewFile' : route.params.fileName);
@@ -40,10 +39,9 @@ export default function NoteEditor({route, navigation}) {
       .then(text => {setEditorText(text)})
     }
     
-    // Apenas carrega a informação se for um arquivo novo
-    if (!route.params.newFile) {
+    // Apenas tenta carregar as informações se não for um arquivo novo
+    if (!route.params.newFile)
       fetchText();
-    }
 
   },[])
 
