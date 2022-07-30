@@ -23,8 +23,6 @@ export async function googleLogin(setGoogleUser) {
 // Função responsável pelo processo de sign out da conta google
 export async function googleSignOut(setGoogleUser) {
   await GoogleSignin.signOut();
-
-  setGoogleUser(null);
 }
 
 export default function Login({navigation}) {
@@ -93,6 +91,7 @@ export default function Login({navigation}) {
           // realiza o logout seguro.
           if (googleUser != null) {
             googleSignOut(setGoogleUser)
+            setGoogleUser(null);
           }
           navigation.navigate('NotesHome');
         }}

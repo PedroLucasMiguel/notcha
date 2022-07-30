@@ -4,6 +4,7 @@ import { MaterialStyles, MaterialColors } from "../utils/MaterialDesign";
 import { actions, RichEditor, RichToolbar } from "react-native-pell-rich-editor";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AppContext } from "../Context";
+import firestore from '@react-native-firebase/firestore';
 
 /*
   Essa é a tela de edição de notas.
@@ -14,6 +15,19 @@ import { AppContext } from "../Context";
   ser encontrado aqui: https://github.com/wxik/react-native-rich-editor/
 */
 
+async function saveOnFirestore(fileName, text, googleUser) {
+  firestore()
+    .collection('UserFiles')
+    .add({
+      UID: googleUser.user.uid,
+      fileName: fileName,
+      content: text,
+    })
+    .then(() => {
+      console.log("YAY");
+    });
+}
+
 async function saveFile(fileName, text, RNFS) {
   await RNFS.writeFile(RNFS.DocumentDirectoryPath + '/' + fileName + '.html', text, 'utf8')
   .then(() => { Alert.alert('File saved succefuly!', RNFS.DocumentDirectoryPath + '/' + fileName + '.html') })
@@ -23,6 +37,7 @@ async function saveFile(fileName, text, RNFS) {
 export default function NoteEditor({route, navigation}) {
 
   var RNFS = require('react-native-fs');
+  const googleUser = useContext(AppContext).googleUser;
   const theme = useContext(AppContext).darkTheme;
   const setRefreshNotes = useContext(AppContext).setRefreshNotes;
   const refreshNotes = useContext(AppContext).refreshNotes;
@@ -98,9 +113,12 @@ export default function NoteEditor({route, navigation}) {
               }
             }
             save={
-              () => { 
-                saveFile(fileName, editorText, RNFS)
-                setRefreshNotes(!refreshNotes)
+              () => {
+                if (googleUser != null){
+                  saveOnFirestore(fileName, editorText, googleUser);
+                } 
+                saveFile(fileName, editorText, RNFS);
+                setRefreshNotes(!refreshNotes);
               }
             }
           />
