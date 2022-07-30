@@ -4,8 +4,43 @@ import { PrimaryButton, RoundIconButton } from "../utils/Components/CustomButton
 import { MaterialColors } from "../utils/MaterialDesign";
 import Separator from "../utils/Components/Separator";
 import { AppContext } from "../Context";
+import auth from '@react-native-firebase/auth';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
+// Função responsável pelo processo de login com conta google
+export async function googleLogin(setGoogleUser) {
+  // Recebe o ID do token do usuário
+  const { idToken } = await GoogleSignin.signIn();
+
+  // Cria uma credencial google com o token
+  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+  // Autentica o usuário adiciona o mesmo no context
+  // Isso permite que qualquer tela tenha acesso ao usuário
+  setGoogleUser((await auth().signInWithCredential(googleCredential)))
+}
+
+// Função responsável pelo processo de sign out da conta google
+export async function googleSignOut(setGoogleUser) {
+  await GoogleSignin.signOut();
+
+  setGoogleUser(null);
+}
 
 export default function Login({navigation}) {
+
+  // Verifica se o usuário possui os serviços da Google instalados no seu dispositivo.
+  // Em caso negativo, ele impede o usuário de utilizar a aplicação.
+  // Isso é necessário pois não é possível realizar o login com a Google sem os serviços instalados.
+  GoogleSignin.hasPlayServices({ autoResolve: true, showPlayServicesUpdateDialog: true })
+
+  // Configurando API
+  GoogleSignin.configure({
+      webClientId: '1003019054639-8j3j71ck41vuf233nuedjgdvf5qio2ad.apps.googleusercontent.com',
+  });
+
+  const googleUser = useContext(AppContext).googleUser;
+  const setGoogleUser = useContext(AppContext).setGoogleUser;
 
   const theme = useContext(AppContext).darkTheme;
   const [pageTheme, setPageTheme] = useState(theme ? [Styles.dt_main_view, Styles.dt_login_text, '#FFFFFF'] : [Styles.wt_main_view, Styles.wt_login_text, '#000000']);
@@ -38,13 +73,10 @@ export default function Login({navigation}) {
         height={60}
         fontSize={20}
         onPress={() => {
-          ToastAndroid.showWithGravityAndOffset(
-            "Work in Progress!",
-            ToastAndroid.SHORT,
-            ToastAndroid.BOTTOM,
-            25,
-            30,
-          );
+          googleLogin(setGoogleUser).then(() => {
+            console.log('Signed in with Google!');
+            navigation.navigate('NotesHome');
+          });
         }}
       />
       <Separator 
@@ -56,7 +88,14 @@ export default function Login({navigation}) {
         padding={30}
         height={60}
         fontSize={20}
-        onPress={() => navigation.navigate('NotesHome')}
+        onPress={() => {
+          // Caso o usuário (por algum motivo) decida usar a seção guest ao invés da google
+          // realiza o logout seguro.
+          if (googleUser != null) {
+            googleSignOut(setGoogleUser)
+          }
+          navigation.navigate('NotesHome');
+        }}
       />
     </ScrollView>
   );

@@ -16,6 +16,8 @@ function wipMessage() {
 
 export default function ConfigScreen() {
 
+  const googleUser = useContext(AppContext).googleUser;
+
   const { darkTheme, setDarkTheme } = useContext(AppContext);
   const [pageTheme, setPageTheme] = useState(darkTheme ? [MaterialStyles.dt_background, Styles.dt_section_title, Styles.dt_section_item] : [MaterialStyles.wt_background, Styles.wt_section_title, Styles.wt_section_item]);
 

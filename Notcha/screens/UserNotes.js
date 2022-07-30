@@ -4,8 +4,11 @@ import { MaterialStyles } from "../utils/MaterialDesign";
 import { PrimaryButton, SecondaryButton } from "../utils/Components/CustomButtons";
 import Separator from "../utils/Components/Separator";
 import { AppContext } from "../Context";
+import UserPortrait from "../utils/Components/UserPortrait";
 
 export default function UserNotes({navigation}) {
+
+  const googleUser = useContext(AppContext).googleUser;
 
   var RNFS = require('react-native-fs');
   const darkTheme = useContext(AppContext).darkTheme;
@@ -77,6 +80,9 @@ export default function UserNotes({navigation}) {
 
   return(
     <ScrollView style={pageTheme}>
+      {googleUser &&
+        <UserPortrait user={googleUser.user} />
+      }
       <View style={Styles.topView}>
         <Text style={{color: 'black'}}>{}</Text>
         <PrimaryButton

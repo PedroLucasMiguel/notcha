@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { StatusBar, PermissionsAndroid, BackHandler, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -8,7 +8,7 @@ import NoteEditor from './screens/NoteEditor';
 import { MaterialColors } from './utils/MaterialDesign';
 import AboutScreen from './screens/AboutScreen';
 import AppContextProvider from './Context';
-
+import { AppContext } from './Context'
 /*
   Aqui se encontra grande parte do mecanismo de navegação do aplicativo
 
@@ -80,6 +80,8 @@ export default function App() {
 
     fetchPermission()
   });
+
+  const googleUser = useContext(AppContext).googleUser
   
   return(
     <AppContextProvider>
