@@ -12,9 +12,10 @@ export const AppContext = createContext({});
 
 export default function AppContextProvider(props) {
     const [darkTheme, setDarkTheme] = useState(false);
+    const [refreshNotes, setRefreshNotes] = useState(false);
 
     return(
-        <AppContext.Provider value={{ darkTheme, setDarkTheme }}>
+        <AppContext.Provider value={{ darkTheme, setDarkTheme, refreshNotes, setRefreshNotes }}>
             {props.children}
         </AppContext.Provider>
     );

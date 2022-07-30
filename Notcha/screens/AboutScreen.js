@@ -31,6 +31,8 @@ export default function AboutScreen() {
         <Separator text='Third party' />
         <Text style={pageTheme[3]}>stulip</Text>
         <Text style={pageTheme[4]}>react-native-rich-editor</Text>
+        <Text style={pageTheme[3]}>itinance</Text>
+        <Text style={pageTheme[4]}>react-native-fs</Text>
       </View>
     </ScrollView>
   );
