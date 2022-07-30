@@ -1,5 +1,5 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
-import { ScrollView, TextInput, Text, View, StyleSheet, ToastAndroid, Alert } from "react-native";
+import { ScrollView, TextInput, Text, View, StyleSheet, Alert } from "react-native";
 import { MaterialStyles, MaterialColors } from "../utils/MaterialDesign";
 import { actions, RichEditor, RichToolbar } from "react-native-pell-rich-editor";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -114,6 +114,7 @@ export default function NoteEditor({route, navigation}) {
             }
             save={
               () => {
+                // Se logado, sobe as mudanças para a núvem
                 if (googleUser != null){
                   saveOnFirestore(fileName, editorText, googleUser);
                 } 

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { ScrollView, Text, StyleSheet, Image, ToastAndroid, View } from "react-native";
+import { ScrollView, Text, StyleSheet, Image, View } from "react-native";
 import { PrimaryButton, RoundIconButton } from "../utils/Components/CustomButtons";
 import { MaterialColors } from "../utils/MaterialDesign";
 import Separator from "../utils/Components/Separator";

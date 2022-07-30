@@ -56,6 +56,7 @@ export default function UserNotes({navigation}) {
 
       let bkp_files = undefined;
       let bkp_files_name = []
+
       // Retorna todos os arquivos referentes ao usuário na database
       if (googleUser != null) {
         bkp_files = await getFilesFromFirestore(googleUser.user.uid);
@@ -65,8 +66,8 @@ export default function UserNotes({navigation}) {
           bkp_files_name.push(bkp_files.docs[i]._data.fileName);
         }
         
-        // Verificando se existem arquivos no armazenamento local que não estão salvos no banco de dados
-        // Em caso verdadeiro, o conteudo é então salvo
+        // Verificando se existem arquivos no armazenamento local que não estão salvos na nuvem.
+        // Caso existam, eles serão salvos no banco de dados.
         for(let i = 0; i < fnamesAux.length; i++) {
           if (!bkp_files_name.includes(fnamesAux[i])) {
             await RNFS.readFile(RNFS.DocumentDirectoryPath + '/' + fnamesAux[i] + '.html', 'utf8')
@@ -95,14 +96,12 @@ export default function UserNotes({navigation}) {
           for(let i = 0; i < bkp_files.docs.length; i++) {
             if (!fnamesAux.includes(bkp_files.docs[i]._data.fileName)) {
               await RNFS.writeFile(RNFS.DocumentDirectoryPath + '/' + bkp_files.docs[i]._data.fileName + '.html', bkp_files.docs[i]._data.content, 'utf8')
-              .then(() => {
-                ToastAndroid.showWithGravity(
-                  fnamesAux[i] + " was restored from the cloud!",
-                  ToastAndroid.SHORT,
-                  ToastAndroid.BOTTOM
-                );
-              })
               fnamesAux.push(bkp_files.docs[i]._data.fileName)
+              ToastAndroid.showWithGravity(
+                fnamesAux[i] + " was restored from the cloud!",
+                ToastAndroid.SHORT,
+                ToastAndroid.BOTTOM
+              );
             }
           }
         }
