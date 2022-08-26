@@ -1,20 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
-import { ScrollView, View, Text, StyleSheet, Switch, ToastAndroid, TextInput } from "react-native";
-import { PrimaryButton } from "../utils/Components/CustomButtons";
+import { ScrollView, View, Text, StyleSheet, Switch } from "react-native";
 import { MaterialStyles, MaterialColors } from "../utils/MaterialDesign";
 import { AppContext } from '../Context'
 
-function wipMessage() {
-  ToastAndroid.showWithGravityAndOffset(
-    "Work in Progress!",
-    ToastAndroid.SHORT,
-    ToastAndroid.BOTTOM,
-    25,
-    30,
-  );
-}
-
 export default function ConfigScreen() {
+
+  const googleUser = useContext(AppContext).googleUser;
 
   const { darkTheme, setDarkTheme } = useContext(AppContext);
   const [pageTheme, setPageTheme] = useState(darkTheme ? [MaterialStyles.dt_background, Styles.dt_section_title, Styles.dt_section_item] : [MaterialStyles.wt_background, Styles.wt_section_title, Styles.wt_section_item]);
@@ -51,25 +42,6 @@ export default function ConfigScreen() {
         </View>
       </View>
 
-      <View style={Styles.section_view}>
-        <Text style={pageTheme[1]}>
-          Files
-        </Text>
-        <View>
-          <Text style={pageTheme[2]}>Default new file name: </Text>
-          <TextInput defaultValue='NewFile' style={Styles.file_name_field} />
-        </View>
-      </View>
-
-      <View style={Styles.sync_view}>
-        <PrimaryButton
-            title='Sync with cloud'
-            padding={30}
-            height={60}
-            fontSize={20}
-            onPress={wipMessage}
-          />
-      </View>
     </ScrollView>
   );
 }

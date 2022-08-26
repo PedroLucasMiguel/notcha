@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1003019054639",
+    "project_id": "notcha-5c816",
+    "storage_bucket": "notcha-5c816.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1003019054639:android:9c6d5763ccbcde6934e0da",
+        "android_client_info": {
+          "package_name": "com.notcha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1003019054639-7kn1h44nlll4v34aq9obt9vehdahs6dp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.notcha",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1003019054639-8j3j71ck41vuf233nuedjgdvf5qio2ad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChNjLvHTbD3_b9mTH5D3H9X0Sev1z-JGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1003019054639-8j3j71ck41vuf233nuedjgdvf5qio2ad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

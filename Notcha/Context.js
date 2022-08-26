@@ -13,9 +13,10 @@ export const AppContext = createContext({});
 export default function AppContextProvider(props) {
     const [darkTheme, setDarkTheme] = useState(false);
     const [refreshNotes, setRefreshNotes] = useState(false);
+    const [googleUser, setGoogleUser] = useState(null);
 
     return(
-        <AppContext.Provider value={{ darkTheme, setDarkTheme, refreshNotes, setRefreshNotes }}>
+        <AppContext.Provider value={{ darkTheme, setDarkTheme, refreshNotes, setRefreshNotes, googleUser, setGoogleUser }}>
             {props.children}
         </AppContext.Provider>
     );

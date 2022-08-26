@@ -33,6 +33,8 @@ export default function AboutScreen() {
         <Text style={pageTheme[4]}>react-native-rich-editor</Text>
         <Text style={pageTheme[3]}>itinance</Text>
         <Text style={pageTheme[4]}>react-native-fs</Text>
+        <Text style={pageTheme[3]}>React Native Firebase</Text>
+        <Text style={pageTheme[4]}>https://rnfirebase.io/</Text>
       </View>
     </ScrollView>
   );
